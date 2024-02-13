@@ -42,7 +42,7 @@ HungryStudentImpl implements HungryStudent:
 
     favorites(): returns favoriteRestaurants.
 
-    addFriends(HungryStudent s): check if this is s.
+    addFriend(HungryStudent s): check if this is s.
     If it is, throw SameStudentException.
     Else, check if s is in friends.
     If it is, throw ConnectionAlreadyExistsException.
@@ -62,3 +62,32 @@ HungryStudentImpl implements HungryStudent:
     toString(): returns string of Restaurant.
 
     compareTo(HungryStudent s): override compareTo and compare to s according to natural order.
+
+
+
+HamburgerNetwork:
+
+methods:
+HamburgerNetworkImpl():
+
+joinNetwork(int id, String name):
+
+addRestaurant(int id, String name, int dist, Set<String> menu):
+
+registeredStudents():
+
+registeredRestaurants():
+
+getStudent(int id):
+
+getRestaurant(int id):
+
+addConnection(HungryStudent s1, HungryStudent s2):
+
+favoritesByRating(HungryStudent s):
+
+favoritesByDist(HungryStudent s):
+
+toString():
+
+getRecommendation(HungryStudent s, Restaurant r, int t):
