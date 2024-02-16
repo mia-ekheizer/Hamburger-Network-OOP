@@ -1,8 +1,6 @@
 package OOP.Provided;
 
 import java.util.Collection;
-import OOP.Provided.HungryStudent.*;
-import OOP.Provided.Restaurant.*;
 import java.util.Set;
 
 /**
@@ -22,7 +20,7 @@ public interface HamburgerNetwork {
      * @return the HungryStudent added
      * */
     HungryStudent joinNetwork(int id, String name)
-            throws StudentAlreadyInSystemException;
+            throws HungryStudent.StudentAlreadyInSystemException;
 
     /**
      * add a restaurant to the network
@@ -33,7 +31,7 @@ public interface HamburgerNetwork {
      * @return the Restaurant added
      * */
     Restaurant addRestaurant(int id, String name, int dist, Set<String> menu)
-            throws RestaurantAlreadyInSystemException;
+            throws Restaurant.RestaurantAlreadyInSystemException;
 
     /**
      * @return a stream of all students in the network
@@ -50,14 +48,14 @@ public interface HamburgerNetwork {
      * @param id - the id of the student to look for in the network
      * */
     HungryStudent getStudent(int id)
-            throws StudentNotInSystemException;
+            throws HungryStudent.StudentNotInSystemException;
 
     /**
      * @return the restaurant in the network by the id given
      * @param id - the id of the restaurant to look for in the network
      * */
     Restaurant getRestaurant(int id)
-            throws RestaurantNotInSystemException;
+            throws Restaurant.RestaurantNotInSystemException;
 
     /**
      * add a connection of friendship between the two students received.
@@ -68,7 +66,7 @@ public interface HamburgerNetwork {
      * @param s2 - the second student
      * */
     HamburgerNetwork addConnection(HungryStudent s1, HungryStudent s2)
-            throws StudentNotInSystemException, ConnectionAlreadyExistsException, SameStudentException;
+            throws HungryStudent.StudentNotInSystemException, HungryStudent.ConnectionAlreadyExistsException, HungryStudent.SameStudentException;
 
     /**
      * returns a collection of restaurants favored by the friends of the received student,
@@ -77,7 +75,7 @@ public interface HamburgerNetwork {
      * @param s - the student whom in relation to him, favored restaurants by his friends are considered
      * */
     Collection<Restaurant> favoritesByRating(HungryStudent s)
-            throws StudentNotInSystemException;
+            throws HungryStudent.StudentNotInSystemException;
 
     /**
      * returns a collection of restaurants favored by the friends of the received student,
@@ -86,7 +84,7 @@ public interface HamburgerNetwork {
      * @param s - the student whom in relation to him, favored restaurants by his friends are considered
      * */
     Collection<Restaurant> favoritesByDist(HungryStudent s)
-            throws StudentNotInSystemException;
+            throws HungryStudent.StudentNotInSystemException;
 
     /**
      * check whether the restaurant received is t-recommended by the received student (definition in the PDF)
@@ -98,7 +96,7 @@ public interface HamburgerNetwork {
      * @return whether s t-recommends r
      * */
     boolean getRecommendation(HungryStudent s, Restaurant r, int t)
-            throws StudentNotInSystemException, RestaurantNotInSystemException, ImpossibleConnectionException;
+            throws HungryStudent.StudentNotInSystemException, Restaurant.RestaurantNotInSystemException, ImpossibleConnectionException;
 
     /**
      * @return the network's description as a string in the following format:

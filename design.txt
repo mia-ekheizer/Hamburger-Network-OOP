@@ -1,46 +1,4 @@
-RestaurantImpl implements Restaurant:
-    fields:
-    int id, String name, int distFromTech, Set<String> menu, Dictionary<HungryStudent, int> studentRateDict, int numOfRates, int sumOfRates.
-
-    methods:
-    RestaurantImpl(int id, String name, int distFromTech, Set<String> menu): basic c'tor, no need to check parameters validity, initialize numOfRates and sumOfRates to 0.
-
-    distance(): returns distFromTech.
-
-    rate(HungryStudent s, int r): check if r is between 0 and 5.
-    if not, throw RateRangeExecption.
-    Then, check if the id of s is already in studentRateDict (need a getter for the student's id).
-    If it is, update the rate of the student s to r and update sumOfRates accordingly.
-    Else, add s and r to studentRateDict and update numOfRates and sumOfRates.
-    Then return this.
-
-    numberOfRates(): returns numOfRates.
-
-    averageRating(): checks if numOfRates is 0.
-    If it is, returns 0.
-    Else, returns sumOfRates devided by numOfRates.
-
-    equals(Object o): override the equals method of Object, compare using compareTo(o).
-
-    toString(): returns string of Restaurant.
-
-    compareTo(Restaurant r): override compareTo and compare to r according to natural order.
-
-
-
-
 HungryStudentImpl implements HungryStudent:
-    fields: int id, String name, List<Restaurant> ratedRestaurants, List<Restaurant> favoriteRestaurants, Set<HungryStudentImpl> friends.
-
-    methods:
-    HungryStudent(int id, String name): basic c'tor.
-
-    favorite(Restaurant r): check if r is in ratedRestaurants.
-    If not, throw UnratedFavoriteRestaurantException.
-    Else, add r to favoriteRestaurants.
-    Returns this.
-
-    favorites(): returns favoriteRestaurants.
 
     addFriend(HungryStudent s): check if this is s.
     If it is, throw SameStudentException.

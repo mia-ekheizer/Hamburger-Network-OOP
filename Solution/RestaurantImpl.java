@@ -1,37 +1,32 @@
 package OOP.Solution;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 import OOP.Provided.*;
+import OOP.Solution.HungryStudentImpl;
 
 public class RestaurantImpl implements Restaurant {
     int id;
     String name;
     int distFromTech;
     Set<String> menu;
-    Map<int, int> studentRateMap;
+    HashMap<Integer, Integer> studentRateMap;
     int numOfRates;
     int sumOfRates;
 
     //C'TOR
-    @Override
     public RestaurantImpl(int id, String name, int distFromTech, Set<String> menu)
     {
         this.id = id;
         this.name = name;
         this.distFromTech = distFromTech;
-        this.studentRateMap = new Map<int, int>();
+        this.studentRateMap = new HashMap<Integer, Integer>();
         this.menu = menu;
         this.sumOfRates = 0;
         this.numOfRates = 0;
     }
 
-    //getter for restaurant id.
-    public int getId()
-    {
-        return this.id;
-    }
     //getter for distFromTech
     @Override
     public int distance()
@@ -41,20 +36,20 @@ public class RestaurantImpl implements Restaurant {
 
     //adding rating to the restaurant
     @Override
-    public Restaurant rate(HungryStudent s, int r)
+    public Restaurant rate(HungryStudent s, int r) throws Restaurant.RateRangeException
     {
         if (r > 5 || r < 0)
         {
-            throw RateRangeExecption;
+            throw new Restaurant.RateRangeException();
         }
-        if (this.studentRateMap.containsKey(s.getId()))
+        if (this.studentRateMap.containsKey(((HungryStudentImpl)s).id))
         {
-            this.sumOfRates -= this.studentRateMap.get(s.getId());
-            this.studentRateMap.replace(s.getId(), r);
+            this.sumOfRates -= this.studentRateMap.get(((HungryStudentImpl)s).id);
+            this.studentRateMap.replace(((HungryStudentImpl)s).id, r);
         }
         else
         {
-            this.studentRateMap.put(s.getId(), r);
+            this.studentRateMap.put(((HungryStudentImpl)s).id, r);
             this.numOfRates++;
         }
         this.sumOfRates += r;
@@ -88,7 +83,7 @@ public class RestaurantImpl implements Restaurant {
         {
             return false;
         }
-        if ((o.compareTo(this) == 0) && (this.compareTo((Restaurant)o) == 0))
+        if ((((Restaurant)o).compareTo(this) == 0) && (this.compareTo((Restaurant)o) == 0))
         {
             return true;
         }
@@ -109,12 +104,8 @@ public class RestaurantImpl implements Restaurant {
 
     //overriding the compareTo method
     @Override
-    public int compareTo(Object o)
+    public int compareTo(Restaurant r)
     {
-        if (!(o instanceof Restaurant))
-        {
-            throw
-        }
-        int diff = this.id - (Restaurant)o.getId();
+        return this.id - ((RestaurantImpl)r).id;
     }
 }

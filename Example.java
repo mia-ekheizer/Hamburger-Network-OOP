@@ -1,13 +1,8 @@
-package OOP.Tests;
+package OOP.Tests.OOP;
 
-import OOP.Provided.HamburgerNetwork;
-import OOP.Provided.HamburgerNetwork.ImpossibleConnectionException;
-import OOP.Provided.HungryStudent;
-import OOP.Provided.HungryStudent.*;
-import OOP.Provided.Restaurant;
-import OOP.Provided.Restaurant.RateRangeException;
-import OOP.Provided.Restaurant.RestaurantAlreadyInSystemException;
-import OOP.Provided.Restaurant.RestaurantNotInSystemException;
+import OOP.Tests.OOP.Provided.HamburgerNetwork;
+import OOP.Tests.OOP.Provided.HungryStudent;
+import OOP.Tests.OOP.Provided.Restaurant;
 import OOP.Solution.HamburgerNetworkImpl;
 import org.junit.Test;
 
@@ -25,7 +20,7 @@ public class Example {
         try {
             s1 = network.joinNetwork(100, "Anne");
             s2 = network.joinNetwork(300, "Ben");
-        } catch (StudentAlreadyInSystemException e) {
+        } catch (HungryStudent.StudentAlreadyInSystemException e) {
             fail();
         }
 
@@ -40,7 +35,7 @@ public class Example {
             r1 = network.addRestaurant(10, "BBB", 12, menu1);
             r2 = network.addRestaurant(12, "Bob's place", 5, menu2);
             r3 = network.addRestaurant(14, "Ben's hut", 1, menu1);
-        } catch (RestaurantAlreadyInSystemException e) {
+        } catch (Restaurant.RestaurantAlreadyInSystemException e) {
             fail();
         }
 
@@ -52,7 +47,7 @@ public class Example {
                     .rate(s1, 3)
                     .rate(s2, 4);
             r3.rate(s2, 4);
-        } catch (RateRangeException e) {
+        } catch (Restaurant.RateRangeException e) {
             fail();
         }
 
@@ -64,7 +59,7 @@ public class Example {
                     .favorite(r2);
             s2.favorite(r2)
                     .favorite(r3);
-        } catch (UnratedFavoriteRestaurantException e) {
+        } catch (HungryStudent.UnratedFavoriteRestaurantException e) {
             fail();
         }
 
@@ -79,7 +74,7 @@ public class Example {
             Collection<Restaurant> s2Favorites = s2.favorites();
             assertTrue(s2Favorites.stream().noneMatch(p1) && s2Favorites.stream().anyMatch(p2));
 
-        } catch (RestaurantNotInSystemException e) {
+        } catch (Restaurant.RestaurantNotInSystemException e) {
             fail();
         }
 
@@ -93,7 +88,8 @@ public class Example {
 
         try {
             network.addConnection(s1, s2);
-        } catch (ConnectionAlreadyExistsException | StudentNotInSystemException | SameStudentException e) {
+        } catch (HungryStudent.ConnectionAlreadyExistsException | HungryStudent.StudentNotInSystemException |
+                 HungryStudent.SameStudentException e) {
             fail();
         }
 
@@ -101,7 +97,8 @@ public class Example {
             assertTrue(network.getRecommendation(s1, r3, 1));
             assertTrue(network.getRecommendation(s1, r1, 0));
             assertFalse(network.getRecommendation(s1, r3, 0));
-        } catch (StudentNotInSystemException | RestaurantNotInSystemException | ImpossibleConnectionException e) {
+        } catch (HungryStudent.StudentNotInSystemException | Restaurant.RestaurantNotInSystemException |
+                 HamburgerNetwork.ImpossibleConnectionException e) {
             fail();
         }
     }
