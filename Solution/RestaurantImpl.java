@@ -1,19 +1,20 @@
 package OOP.Solution;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 import OOP.Provided.*;
 import OOP.Solution.HungryStudentImpl;
 
 public class RestaurantImpl implements Restaurant {
-    int id;
-    String name;
-    int distFromTech;
-    Set<String> menu;
-    HashMap<Integer, Integer> studentRateMap;
-    int numOfRates;
-    int sumOfRates;
+    public int id;
+    public String name;
+    public int distFromTech;
+    public Set<String> menu;
+    public HashMap<Integer, Integer> studentRateMap;
+    public int numOfRates;
+    public int sumOfRates;
 
     //C'TOR
     public RestaurantImpl(int id, String name, int distFromTech, Set<String> menu)
@@ -109,3 +110,56 @@ public class RestaurantImpl implements Restaurant {
         return this.id - ((RestaurantImpl)r).id;
     }
 }
+
+public class compareByRating implements Comparator<Restaurant>
+{
+    @Override
+    public int compare(Restaurant first, Restaurant second)
+    {
+        if (first.averageRating() < second.averageRating())
+        {
+            return 1;
+        } else if (first.averageRating() > second.averageRating()) {
+            return -1;
+        }
+        else
+        {
+            if (first.distance() > second.distance())
+            {
+                return 1;
+            } else if (first.distance() < second.distance()) {
+                return -1;
+            }
+            else {
+                return first.compareTo(second);
+            }
+        }
+    }
+}
+
+public class compareByDistance implements Comparator<Restaurant>
+{
+    @Override
+    public int compare(Restaurant first, Restaurant second)
+    {
+        if (first.distance() > second.distance()
+        {
+            return 1;
+        } else if (first.distance() < second.distance()) {
+            return -1;
+        }
+        else
+        {
+            if (first.averageRating() < second.averageRating())
+            {
+                return 1;
+            } else if (first.averageRating() > second.averageRating()) {
+                return -1;
+            }
+            else {
+                return first.compareTo(second);
+            }
+        }
+    }
+}
+

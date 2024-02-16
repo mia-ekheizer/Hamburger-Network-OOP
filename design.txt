@@ -1,17 +1,5 @@
 HungryStudentImpl implements HungryStudent:
 
-    addFriend(HungryStudent s): check if this is s.
-    If it is, throw SameStudentException.
-    Else, check if s is in friends.
-    If it is, throw ConnectionAlreadyExistsException.
-    Else, add it to friends of this.
-    Returns this.
-
-    getFriends(): returns friends.
-
-    favoritesByRating(int r): returns a new list that contains the restaurants in favoriteRestaurantsByRating that have a rating that is bigger than or equal to r.
-    creating a stream from favoriteRestaurants -> filtering according to r -> sorting according to rating and other points (implement Comperator<T>) -> collecting.
-
     favoritesByDist(int r): returns a new list that contains the restaurants in favoriteRestaurantsByDist that have a dist that is less than or equal to r.
     creating a stream from favoriteRestaurants -> filtering according to r -> sorting according to dist and other points (implement Comperator<T>) -> collecting.
 
