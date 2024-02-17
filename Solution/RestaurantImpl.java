@@ -42,7 +42,17 @@ public class RestaurantImpl implements Restaurant {
         {
             throw new Restaurant.RateRangeException();
         }
-        if (this.studentRateMap.containsKey(((HungryStudentImpl)s).id))
+        boolean restRated = false;
+        ArrayList<Restaurant> ratedRestaurants = ((HungryStudentImpl)s).getRatedRestaurants();
+        for (Restaurant restaurant : ratedRestaurants)
+        {
+            if (this == restaurant)
+            {
+                restRated = true;
+                break;
+            }
+        }
+        if (restRated)
         {
             this.sumOfRates -= this.studentRateMap.get(((HungryStudentImpl)s).id);
             this.studentRateMap.replace(((HungryStudentImpl)s).id, r);
@@ -99,12 +109,15 @@ public class RestaurantImpl implements Restaurant {
                 "Id: " + this.id + ".\n" +
                 "Distance: " + this.distFromTech + ".\n" +
                 "Menu: ";
-        List<String> sortedMenu = (this.menu).stream().sorted().toList();
-        for (String dish : sortedMenu)
+        if (!this.menu.isEmpty())
         {
-            ret += dish + ", ";
+            List<String> sortedMenu = (this.menu).stream().sorted().toList();
+            for (String dish : sortedMenu)
+            {
+                ret += dish + ", ";
+            }
+            ret = ret.substring(0, ret.length() - 2);
         }
-        ret = ret.substring(0, ret.length() - 2);
         ret += ".";
         return ret;
     }

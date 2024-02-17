@@ -158,30 +158,39 @@ public class HamburgerNetworkImpl implements HamburgerNetwork {
     public String toString()
     {
         //adding students to string
-        String ret = "Registered students: ";
         List<HungryStudent> sortedStudents = this.registeredStudents.stream().sorted().toList();
-        for (HungryStudent s : sortedStudents)
+        String ret = "Registered students: ";
+        if (!this.registeredStudents.isEmpty())
         {
-            ret += ((HungryStudentImpl)s).id + ", ";
+            for (HungryStudent s : sortedStudents)
+            {
+                ret += ((HungryStudentImpl)s).id + ", ";
+            }
+            ret = ret.substring(0, ret.length() - 2);
         }
-        ret = ret.substring(0, ret.length() - 2);
         ret += ".\n";
 
         //adding restaruants to string
-        ret += "Registered restaurants: ";
         List<Restaurant> sortedRestaurants = this.registeredRestaurants.stream().sorted().toList();
-        for (Restaurant r : sortedRestaurants)
+        ret += "Registered restaurants: ";
+        if (!this.registeredRestaurants.isEmpty())
         {
-            ret += ((RestaurantImpl)r).id + ", ";
+            for (Restaurant r : sortedRestaurants)
+            {
+                ret += ((RestaurantImpl)r).id + ", ";
+            }
+            ret = ret.substring(0, ret.length() - 2);
         }
-        ret = ret.substring(0, ret.length() - 2);
         ret += ".\n";
 
         //adding students with details to string
         ret += "Students:\n";
-        for (HungryStudent s : sortedStudents)
+        if (!this.registeredStudents.isEmpty())
         {
-            ret += ((HungryStudentImpl)s).id + " -> " + s.getFriends() + ".\n";
+            for (HungryStudent s : sortedStudents)
+            {
+                ret += ((HungryStudentImpl)s).id + " -> " + s.getFriends() + ".\n";
+            }
         }
         ret += "End students.";
         return ret;

@@ -27,9 +27,25 @@ public class HungryStudentImpl implements HungryStudent
     //adding a restaurant as a favorite
     @Override
     public HungryStudent favorite(Restaurant r) throws HungryStudent.UnratedFavoriteRestaurantException {
-        if (!this.ratedRestaurants.contains(r))
+        boolean restRated = false;
+        for (Restaurant restaurant : ratedRestaurants)
+        {
+            if (r == restaurant)
+            {
+                restRated = true;
+                break;
+            }
+        }
+        if (!restRated)
         {
             throw new HungryStudent.UnratedFavoriteRestaurantException();
+        }
+        for (Restaurant restaurant : favoriteRestaurants)
+        {
+            if (restaurant == r)
+            {
+                return (HungryStudent)this;
+            }
         }
         this.favoriteRestaurants.add(r);
         return (HungryStudent)this;
@@ -97,23 +113,22 @@ public class HungryStudentImpl implements HungryStudent
         }
         return false;
     }
-    /*
-        * Favorites: <resName1, resName2, resName3...>
-        * </format>
-        * Note: favorite restaurants are ordered by lexicographical order, asc.
-     */
+
     @Override
     public String toString()
     {
         String ret = "Hungry student: " + this.name + ".\n" +
                 "Id: " + this.id + ".\n" +
                 "Favorites: ";
-        List<String> sortedFavRestaurants = this.favoriteRestaurants.stream().map(rest -> ((RestaurantImpl)rest).name).sorted().toList();
-        for (String restaurant : sortedFavRestaurants)
+        if (!this.favoriteRestaurants.isEmpty())
         {
-            ret += restaurant + ", ";
+            List<String> sortedFavRestaurants = this.favoriteRestaurants.stream().map(rest -> ((RestaurantImpl)rest).name).sorted().toList();
+            for (String restaurant : sortedFavRestaurants)
+            {
+                ret += restaurant + ", ";
+            }
+            ret = ret.substring(0, ret.length() - 2);
         }
-        ret = ret.substring(0, ret.length() - 2);
         ret += ".";
         return ret;
     }
@@ -124,4 +139,8 @@ public class HungryStudentImpl implements HungryStudent
         return this.id - ((HungryStudentImpl)s).id;
     }
 
+    public ArrayList<Restaurant> getRatedRestaurants()
+    {
+        return this.ratedRestaurants;
+    }
 }
