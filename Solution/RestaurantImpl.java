@@ -1,9 +1,8 @@
 package OOP.Solution;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import OOP.Provided.*;
 import OOP.Solution.HungryStudentImpl;
 
@@ -50,6 +49,7 @@ public class RestaurantImpl implements Restaurant {
         }
         else
         {
+            ((HungryStudentImpl)s).ratedRestaurants.add(this);
             this.studentRateMap.put(((HungryStudentImpl)s).id, r);
             this.numOfRates++;
         }
@@ -95,11 +95,17 @@ public class RestaurantImpl implements Restaurant {
     @Override
     public String toString()
     {
-        String ret =
-         "Restaurant: " + this.name + ".\n" +
-         "Id: " + this.id + ".\n" +
-        "Distance: " + this.distFromTech + ".\n" +
-        "Menu: " + this.menu.stream().sorted();
+        String ret = "Restaurant: " + this.name + ".\n" +
+                "Id: " + this.id + ".\n" +
+                "Distance: " + this.distFromTech + ".\n" +
+                "Menu: ";
+        List<String> sortedMenu = (this.menu).stream().sorted().toList();
+        for (String dish : sortedMenu)
+        {
+            ret += dish + ", ";
+        }
+        ret = ret.substring(0, ret.length() - 2);
+        ret += ".";
         return ret;
     }
 
@@ -108,58 +114,6 @@ public class RestaurantImpl implements Restaurant {
     public int compareTo(Restaurant r)
     {
         return this.id - ((RestaurantImpl)r).id;
-    }
-}
-
-public class compareByRating implements Comparator<Restaurant>
-{
-    @Override
-    public int compare(Restaurant first, Restaurant second)
-    {
-        if (first.averageRating() < second.averageRating())
-        {
-            return 1;
-        } else if (first.averageRating() > second.averageRating()) {
-            return -1;
-        }
-        else
-        {
-            if (first.distance() > second.distance())
-            {
-                return 1;
-            } else if (first.distance() < second.distance()) {
-                return -1;
-            }
-            else {
-                return first.compareTo(second);
-            }
-        }
-    }
-}
-
-public class compareByDistance implements Comparator<Restaurant>
-{
-    @Override
-    public int compare(Restaurant first, Restaurant second)
-    {
-        if (first.distance() > second.distance()
-        {
-            return 1;
-        } else if (first.distance() < second.distance()) {
-            return -1;
-        }
-        else
-        {
-            if (first.averageRating() < second.averageRating())
-            {
-                return 1;
-            } else if (first.averageRating() > second.averageRating()) {
-                return -1;
-            }
-            else {
-                return first.compareTo(second);
-            }
-        }
     }
 }
 

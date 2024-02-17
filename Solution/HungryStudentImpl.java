@@ -3,10 +3,7 @@ package OOP.Solution;
 import OOP.Provided.*;
 import OOP.Solution.RestaurantImpl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class HungryStudentImpl implements HungryStudent
@@ -73,8 +70,58 @@ public class HungryStudentImpl implements HungryStudent
 
     //returns a collection of favorite restaurants by rating than by distance than by id
     @Override
-    public Collection<Restaurant> favoritesByRating(int r)
+    public Collection<Restaurant> favoritesByRating(int rLimit)
     {
-       return (this.favoriteRestaurants).stream().filter(rest -> rest.averageRating() >= r).sorted(new compareByRating()).collect(Collectors.toList());
+       return (this.favoriteRestaurants).stream().filter(rest -> rest.averageRating() >= rLimit).sorted(new compareByRating()).collect(Collectors.toList());
     }
+
+    @Override
+    public Collection<Restaurant> favoritesByDist(int dLimit)
+    {
+        return (this.favoriteRestaurants).stream().filter(rest -> rest.distance() <= dLimit).sorted(new compareByDistance()).collect(Collectors.toList());
+    }
+
+    public Collection<Restaurant> favoritesByDist()
+    {
+        return (this.favoriteRestaurants).stream().sorted(new compareByDistance()).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (!(o instanceof HungryStudent)) {
+            return false;
+        }
+        if ((((HungryStudent) o).compareTo(this) == 0) && (this.compareTo((HungryStudent) o) == 0)) {
+            return true;
+        }
+        return false;
+    }
+    /*
+        * Favorites: <resName1, resName2, resName3...>
+        * </format>
+        * Note: favorite restaurants are ordered by lexicographical order, asc.
+     */
+    @Override
+    public String toString()
+    {
+        String ret = "Hungry student: " + this.name + ".\n" +
+                "Id: " + this.id + ".\n" +
+                "Favorites: ";
+        List<String> sortedFavRestaurants = this.favoriteRestaurants.stream().map(rest -> ((RestaurantImpl)rest).name).sorted().toList();
+        for (String restaurant : sortedFavRestaurants)
+        {
+            ret += restaurant + ", ";
+        }
+        ret = ret.substring(0, ret.length() - 2);
+        ret += ".";
+        return ret;
+    }
+
+    @Override
+    public int compareTo(HungryStudent s)
+    {
+        return this.id - ((HungryStudentImpl)s).id;
+    }
+
 }
